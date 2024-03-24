@@ -15,6 +15,7 @@ public class LeaveRequestRepository :
     public async Task<List<LeaveRequest>> GetLeaveRequestsWithDetails()
     {
         return await _context.LeaveRequests
+            .Where(q => !string.IsNullOrEmpty(q.RequestingEmployeeId))
             .Include(q => q.LeaveType)
             .AsNoTracking()
             .ToListAsync();
